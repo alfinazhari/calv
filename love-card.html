@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Beyond Stars</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #0a0a23, #1a0a2e, #16213e, #0f3460);
+            position: relative;
+        }
+
+        /* Animasi Bintang */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .star:nth-child(odd) {
+            animation-delay: 1s;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Planet dan Galaksi */
+        .galaxy {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,105,180,0.3), rgba(138,43,226,0.2), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        .planet {
+            position: absolute;
+            bottom: 15%;
+            left: 15%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            box-shadow: 0 0 50px rgba(255,107,157,0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Meteor */
+        .meteor {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #fff, transparent);
+            animation: meteor 3s linear infinite;
+            top: -100px;
+        }
+
+        @keyframes meteor {
+            0% {
+                transform: translateX(-200px) translateY(-200px) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(200px) translateY(200px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Konten Utama */
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .love-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b9d, #c44569, #f8b500, #ff6b9d);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite, pulse 2s ease-in-out infinite alternate;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255,107,157,0.5);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .love-message {
+            font-size: 1.3rem;
+            color: #fff;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 2s ease forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hati Beranimasi */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 2rem;
+            animation: floatHeart 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Tombol Interaktif */
+        .love-button {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,107,157,0.3);
+            animation: buttonGlow 2s ease-in-out infinite alternate;
+        }
+
+        .love-button:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,107,157,0.5);
+        }
+
+        @keyframes buttonGlow {
+            0% { box-shadow: 0 10px 30px rgba(255,107,157,0.3); }
+            100% { box-shadow: 0 15px 40px rgba(255,107,157,0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .love-title {
+                font-size: 2.5rem;
+            }
+            .love-message {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            .galaxy, .planet {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Partikel Cahaya */
+        .light-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: lightFloat 8s linear infinite;
+        }
+
+        @keyframes lightFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="galaxy"></div>
+    <div class="planet"></div>
+    
+    <div class="meteor" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="meteor" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="meteor" style="left: 80%; animation-delay: 4s;"></div>
+
+    <div class="container">
+        <h1 class="love-title">Cintaku Seperti Alam Semesta</h1>
+        
+        <p class="love-message" id="message">
+            Sayangku, seperti bintang-bintang di langit yang tak terhitung jumlahnya,
+            begitulah cintaku padamu... <span id="dynamic-text">tanpa batas dan abadi</span> 💫
+        </p>
+
+        <button class="love-button" onclick="showSurprise()">
+            ✨ Klik untuk Kejutan ✨
+        </button>
+    </div>
+
+    <script>
+        // Generate bintang-bintang
+        function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starContainer.appendChild(star);
+            }
+        }
+
+        // Generate hati terbang
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 800);
+        }
+
+        // Generate partikel cahaya
+        function createLightParticles() {
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'light-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            }, 500);
+        }
+
+        // Pesan dinamis
+        const loveMessages = [
+            "tanpa batas dan abadi",
+            "seluas galaksi yang tak berujung",
+            "seindah nebula yang bercahaya",
+            "sekuat gravitasi yang menyatukan planet",
+            "sepanjang perjalanan cahaya di alam semesta"
+        ];
+
+        function changeDynamicText() {
+            const textElement = document.getElementById('dynamic-text');
+            let index = 0;
+            setInterval(() => {
+                textElement.style.opacity = '0';
+                setTimeout(() => {
+                    textElement.textContent = loveMessages[index];
+                    textElement.style.opacity = '1';
+                    index = (index + 1) % loveMessages.length;
+                }, 500);
+            }, 3000);
+        }
+
+        // Kejutan saat tombol diklik
+        function showSurprise() {
+            const messages = [
+                "🌟 Kamu adalah bintang terterang di hidupku!",
+                "💫 Bersamamu, aku merasa bisa menjelajahi seluruh alam semesta!",
+                "🚀 Cinta kita akan melintasi ruang dan waktu!",
+                "🌙 Seperti bulan yang selalu kembali, aku akan selalu kembali padamu!",
+                "⭐ Di antara miliaran bintang, kamu yang paling bersinar!"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('message').innerHTML = randomMessage;
+            
+            // Tambah efek ledakan hati
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💕';
+                    heart.style.position = 'fixed';
+                    heart.style.left = '50%';
+                    heart.style.top = '50%';
+                    heart.style.fontSize = '2rem';
+                    heart.style.zIndex = '1000';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = `explodeHeart 2s ease-out forwards`;
+                    
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes explodeHeart {
+                            0% {
+                                transform: translate(-50%, -50%) scale(0);
+                                opacity: 1;
+                            }
+                            100% {
+                                transform: translate(-50%, -50%) translate(${(Math.random() - 0.5) * 400}px, ${(Math.random() - 0.5) * 400}px) scale(1.5);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                        style.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // Inisialisasi semua animasi
+        createStars();
+        createFloatingHearts();
+        createLightParticles();
+        changeDynamicText();
+
+        // Easter egg: klik di mana saja untuk ledakan bintang
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON') {
+                const star = document.createElement('div');
+                star.innerHTML = '✨';
+                star.style.position = 'fixed';
+                star.style.left = e.clientX + 'px';
+                star.style.top = e.clientY + 'px';
+                star.style.fontSize = '1.5rem';
+                star.style.zIndex = '1000';
+                star.style.pointerEvents = 'none';
+                star.style.animation = 'explodeStar 1s ease-out forwards';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes explodeStar {
+                        0% { transform: scale(0); opacity: 1; }
+                        100% { transform: scale(2); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                document.body.appendChild(star);
+                
+                setTimeout(() => {
+                    star.remove();
+                    style.remove();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
